@@ -13,7 +13,7 @@ Bring order to your AI coding sessions across **OMP, Claude Code, Codex, Pi, Ope
 Run this inside Tern:
 
 ```sh
-tern plugin install github.com/thegeneralist01/tern-projects
+tern plugin install github.com/Zestful-ss/tern-projects
 ```
 
 **Toggle the sidebar:**
@@ -26,7 +26,17 @@ That's it. Tern fetches the plugin, and the background engine builds automatical
 
 To update later:
 ```sh
-tern plugin install github.com/thegeneralist01/tern-projects --force
+tern plugin install github.com/Zestful-ss/tern-projects --force
+```
+
+### This fork is the source of truth
+
+`Zestful-ss/tern-projects` is maintained independently of `thegeneralist01/tern-projects` (the upstream we forked from at 0.2.3). Install and update from **this** repository; no upstream sync is intended.
+
+Development clone: edit, then
+```sh
+cargo build --release --locked --manifest-path indexer/Cargo.toml   # compile check
+tern plugin install github.com/Zestful-ss/tern-projects --force      # refresh the installed copy
 ```
 
 ---
