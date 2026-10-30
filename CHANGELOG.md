@@ -2,6 +2,11 @@
 
 All notable changes to `tern-projects` will be documented in this file.
 
+## [0.2.5] — 2026-10-30
+
+### Fixed
+- **Project folder storage**: saved project folders and the folder browser now record the plain spelling instead of the `\\?\` verbatim path. Existing rows keep working (launch normalizes them) and are rewritten the next time the project is saved.
+
 ## [0.2.4] — 2026-10-30
 
 ### Fixed
