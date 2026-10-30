@@ -2,6 +2,12 @@
 
 All notable changes to `tern-projects` will be documented in this file.
 
+## [0.2.4] — 2026-10-30
+
+### Fixed
+- **Windows launch paths**: `launch-plan` no longer hands out the verbatim `\\?\` spelling that `std::fs::canonicalize` produces. It is now stripped from the primary folder (`--cwd` / `--cd` / positional), the extra `--add-dir` folders, and the OMP `--config` overlay. Harnesses that key per-project state on the cwd crashed instead of starting: OMP builds its session directory from the cwd, keeps the `?`, and fails with `ENOENT: no such file or directory, mkdir ...\---?-D--...--` (the shell then exits 1).
+- UNC folders keep their normal spelling (`\\?\UNC\server\share` → `\\server\share`).
+
 ## [0.2.3] — 2026-10-16
 
 ### Added
