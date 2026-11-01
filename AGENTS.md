@@ -71,6 +71,12 @@ This repository uses Jujutsu (`.jj`) as its primary version-control interface.
 - Always prefer `jj` commands (`jj status`, `jj describe`, `jj diff`, `jj new`) for VCS tasks.
 - Avoid destructive or mutating `git` commands unless specifically requested.
 
+## Releasing
+
+Every shipped change gets its own version: raise `version` in `plugin.toml` and turn the CHANGELOG's
+`## [Unreleased]` section into `## [X.Y.Z] — YYYY-MM-DD` in the same commit. Never ship code without
+the matching version and changelog entry.
+
 ## Build & Test Commands
 
 ```sh

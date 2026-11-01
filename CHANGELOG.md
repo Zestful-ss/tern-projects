@@ -2,7 +2,7 @@
 
 All notable changes to `tern-projects` will be documented in this file.
 
-## [Unreleased]
+## [0.2.6] — 2026-11-01
 
 ### Fixed
 - **New chat no longer goes quiet.** `New chat` with a default harness now asks only for that launch plan instead of surveying every installed CLI first (a survey that probes each tool with a 5 second cap and showed nothing meanwhile). The panel shows `Preparing new chat…` with a `Cancel` action, explains itself after 5 seconds, and gives up after 15 seconds (`launch-plan`) or 65 seconds (tool survey) with a retryable error — or names the build when `cli.status()` says one is running. Further clicks during a wait are ignored and the New chat buttons are disabled.
