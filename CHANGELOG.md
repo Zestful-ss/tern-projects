@@ -2,6 +2,11 @@
 
 All notable changes to `tern-projects` will be documented in this file.
 
+## [Unreleased]
+
+### Fixed
+- Permanently deleting an OMP chat removes prompt history attributed to that session and rebuilds its full-text index, repairing any existing index inconsistencies.
+
 ## [0.2.6] — 2026-11-01
 
 ### Fixed
