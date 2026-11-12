@@ -35,7 +35,9 @@ local function float_over(cx: SessionContext, pane: number, over: number?)
 		return
 	end
 	local owner = if over ~= pane then over else nil
-	local ok, err = cx.layout:float(pane, owner, "tl")
+	-- Glance size as a share of the frame; focusing grows it by half again (the layout clamps both
+	-- to 70% of the frame), so the panel opens tall enough to work in.
+	local ok, err = cx.layout:float(pane, owner, "tl", { size = { 0.45, 0.47 } })
 	if not ok then
 		tern.log.error("tern-projects: cannot float the panel: " .. tostring(err))
 	end

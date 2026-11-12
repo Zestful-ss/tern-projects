@@ -4,6 +4,11 @@ All notable changes to `tern-projects` will be documented in this file.
 
 ## [Unreleased]
 
+## [0.2.8] — 2026-11-12
+
+### Changed
+- **The panel opens large enough to work in.** The float asks for 45% × 47% of the frame it sits over; focusing grows it by half again and the layout caps it at 70%, so a single-pane tab opens it at roughly 1176×739 instead of 720×420. Width follows the pane the panel is anchored to.
+
 ## [0.2.7] — 2026-11-12
 
 ### Changed
