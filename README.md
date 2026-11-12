@@ -1,10 +1,10 @@
 # tern-projects
 
-A curated project sidebar and unified agent history search for [Tern](https://stencil.so/tern).
+A curated project panel and unified agent history search for [Tern](https://stencil.so/tern).
 
 Bring order to your AI coding sessions across **OMP, Claude Code, Codex, Pi, OpenCode, and Cursor**.
 
-![tern-projects sidebar overview](docs/screenshots/showcase-overview.png)
+![tern-projects panel overview](docs/screenshots/showcase-overview.png)
 
 ---
 
@@ -16,7 +16,7 @@ Run this inside Tern:
 tern plugin install github.com/Zestful-ss/tern-projects
 ```
 
-**Toggle the sidebar:**
+**Toggle the panel** — it floats at the window's top-left corner, and the same shortcut closes it:
 - **macOS:** `⌘ ⌥ S`
 - **Windows / Linux:** `Ctrl + Alt + S`
 
@@ -43,13 +43,13 @@ tern plugin install github.com/Zestful-ss/tern-projects --force      # refresh t
 
 ## What it does
 
-If you use multiple AI coding agents, your sessions are scattered across hidden SQLite databases and JSONL files. `tern-projects` unifies them into a fast, native sidebar:
+If you use multiple AI coding agents, your sessions are scattered across hidden SQLite databases and JSONL files. `tern-projects` unifies them into one fast, native panel:
 
 - 📁 **Curated "My Projects" & Multi-Folder Workspaces** — Real projects rarely live in a single directory. Group an app, its backend API, shared libraries, and documentation into one named project with a custom icon.
 - 🎯 **Primary Launch Directories** — Pick one folder as **Primary** (where fresh agent sessions spawn), while additional directories are automatically supplied via `--add-dir` to harnesses that support multi-folder workspaces (OMP, Claude Code, Codex).
 - 🔍 **Instant Full-Text Search** — FTS5-powered search across all your past sessions. Filter by **Worktree**, **Repository**, or **All history** with live keyword highlighting.
 - 🚀 **Fresh Chat Launching** — Press `⌘N` (`Ctrl+N`) to launch a new chat in your preferred CLI (`omp`, `claude`, `codex`, `pi`, `opencode`, or `cursor`).
-- 📌 **Global Pins & Recents** — Keep critical threads pinned to the top of your sidebar. Recents keeps your 15 most recent chats one click away.
+- 📌 **Global Pins & Recents** — Keep critical threads pinned to the top of the panel. Recents keeps your 15 most recent chats one click away.
 - 🗄️ **Local Archiving & Safe Deletion** — Archive threads to hide them without losing data, or permanently delete sessions via verified native CLI calls.
 
 ![tern-projects details, menus, and search results](docs/screenshots/showcase-details.png)
@@ -62,7 +62,7 @@ Optimized for speed and one-handed navigation:
 
 | Action | macOS | Windows / Linux |
 |---|---|---|
-| **Toggle Projects sidebar** | `⌘ ⌥ S` | `Ctrl + Alt + S` |
+| **Toggle Projects panel** | `⌘ ⌥ S` | `Ctrl + Alt + S` |
 | **Search everywhere** | `⌃ ⌥ ⌘ S` | `Ctrl + Alt + Shift + S` |
 | **Cycle views** (Projects ➔ Found ➔ Search ➔ Settings) | `Tab` / `Shift + Tab` | `Tab` / `Shift + Tab` |
 | **Quick Search** from Projects or Settings | `/` | `/` |

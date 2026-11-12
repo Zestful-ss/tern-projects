@@ -50,7 +50,7 @@ tern.d.luau          Generated Tern type stubs (gitignored)
    - **Window** (`window.luau`): Runs in each Tern window. Handles keyboard shortcuts, action palette commands, and dispatches IPC launch/resume routes (`tern-projects://launch`, `tern-projects://resume`).
 
 2. **Frontend UI (Luau)**:
-   - `blocks/panel.luau`: Primary sidebar UI featuring three main views: Projects (My Projects & Discovered), Search (scoped FTS), and Settings.
+   - `blocks/panel.luau`: Primary panel UI (a floating block at the window's top-left), with three views: Projects (My Projects & Discovered), Search (scoped FTS), and Settings.
    - `lib/`: Reusable components (`ui.luau`, `picker.luau`, `project-editor.luau`, `textfield.luau`, `input.luau`).
 
 3. **Backend CLI (Rust)**:
