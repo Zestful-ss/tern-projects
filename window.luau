@@ -10,33 +10,63 @@ local unpct = fmt.unpct
 local pct = fmt.pct
 
 local KIND = "tern-projects.panel"
-local WIDTH = 44
 
 -- Per-pane state for toggle tracking.
 local last_mode: { [number]: string } = {}
 local prev_focus: { [number]: number } = {}
 
+-- The panel opens as a floating block over the pane at the stage's top-left corner, so it sits at
+-- the window's corner whichever pane has focus, and a second command closes it.
+local function stage_leaf(cx: SessionContext, tab: number): number?
+	local layout = cx.session:layout(tab)
+	if layout == nil then
+		return nil
+	end
+	local node: any = layout.root
+	while node ~= nil and node.pane == nil do
+		node = node[1]
+	end
+	return if node ~= nil then node.pane else nil
+end
+
+local function float_over(cx: SessionContext, pane: number, over: number?)
+	local p = cx.session:pane(pane)
+	if p == nil or p.floating == true then
+		return
+	end
+	local owner = if over ~= pane then over else nil
+	local ok, err = cx.layout:float(pane, owner, "tl")
+	if not ok then
+		tern.log.error("tern-projects: cannot float the panel: " .. tostring(err))
+	end
+	cx.layout:focus(pane)
+end
+
 -- Toggle or open the projects panel in `mode` for the current tab.
 local function toggle(cx: SessionContext, mode: string)
 	local f = cx.session:focused()
-	local fi = f ~= nil and cx.session:pane(f) or nil
-	local tab = fi ~= nil and fi.tab or nil
+	if f == nil then
+		return
+	end
+	-- A floating block reports no tab of its own; ask the tab that holds it.
+	local tab = cx.session:tab_of(f)
 	if tab == nil then
 		return
 	end
+	local fi = cx.session:pane(f)
 
 	-- Find an existing panel pane on this tab.
 	local panel: number? = nil
 	for _, p in cx.session:panes() do
-		if p.block == KIND and p.tab == tab then
+		if p.block == KIND and cx.session:tab_of(p.pane) == tab then
 			panel = p.pane
 			break
 		end
 	end
 
 	if panel ~= nil then
-		if f == panel and last_mode[panel] == mode then
-			-- Same key again while panel is focused: close it.
+		if last_mode[panel] == mode then
+			-- The same command again closes the float, wherever the focus sits.
 			cx.layout:close(panel)
 			local pf = prev_focus[panel]
 			if pf ~= nil then
@@ -66,8 +96,8 @@ local function toggle(cx: SessionContext, mode: string)
 		return
 	end
 
-	-- Create a new panel.
-	pcall(tern.fs.remove, tern.plugin.data .. "/panel-cols")
+	-- Create the panel as a split, then float it at the stage's top-left corner.
+	local anchor = stage_leaf(cx, tab)
 	local new_cwd = fi ~= nil and (fi.cwd or "") or ""
 	local new_pane = cx.layout:split(f :: number, "left", { block = KIND, args = { mode, new_cwd } })
 	if new_pane == nil then
@@ -76,19 +106,17 @@ local function toggle(cx: SessionContext, mode: string)
 	end
 	last_mode[new_pane] = mode
 	prev_focus[new_pane] = f :: number
-
-	-- After the block reports its width, resize the split.
-	tern.timer(400, function(cx2: SessionContext)
-		local ok, data = pcall(tern.fs.read, tern.plugin.data .. "/panel-cols")
-		if not ok then
-			return
-		end
-		local c = tonumber(data)
-		if c ~= nil and c > WIDTH + 2 then
-			cx2.layout:resize(new_pane :: number, "right", -(c - WIDTH))
-		end
-	end)
+	float_over(cx, new_pane, anchor)
 end
+
+-- A panel that the layout opened on its own (a palette entry, a restored block) floats as well.
+tern.on("pane_created", function(ev: any, cx: SessionContext)
+	local p = cx.session:pane(ev.pane)
+	if p ~= nil and p.block == KIND then
+		local tab = cx.session:tab_of(ev.pane)
+		float_over(cx, ev.pane, if tab ~= nil then stage_leaf(cx, tab) else nil)
+	end
+end)
 
 -- User overrides take precedence over plugin defaults. Migrate only exact old actions.
 local function migrate_keybinds(cx: SessionContext)

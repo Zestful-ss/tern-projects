@@ -4,6 +4,11 @@ All notable changes to `tern-projects` will be documented in this file.
 
 ## [Unreleased]
 
+## [0.2.7] — 2026-11-12
+
+### Changed
+- **The panel floats at the window's corner.** `Projects`, `Projects: Search` and `Projects: Settings` open the block as a floating card at the stage's top-left corner instead of splitting off a column, whichever pane has focus, and the same command closes it; a panel that the layout opens on its own floats as well.
+
 ### Fixed
 - Permanently deleting an OMP chat removes prompt history attributed to that session and rebuilds its full-text index, repairing any existing index inconsistencies.
 

@@ -1490,7 +1490,6 @@ local panel: BlockDef<any> = {
 			if saved.sort == "updated" or saved.sort == "relevance" then s.sort = saved.sort end
 			if type(saved.query) == "string" then tf.set(s.query, saved.query) end
 		end
-		pcall(tern.fs.write, tern.plugin.data .. "/panel-cols", tostring(cx.cols))
 		rebuild(s)
 		refresh(s)
 		local function tick()
